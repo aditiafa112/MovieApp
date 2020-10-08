@@ -1,0 +1,11 @@
+after ini project
+1. Push to Git
+2. Add Package {
+    tslint-config-prettier
+    tslint-eslint-rules
+    tslint-react
+    react-native-svg
+    react-native-svg-transformer
+    react navigation & dependency
+    react navigation stack / 
+}
