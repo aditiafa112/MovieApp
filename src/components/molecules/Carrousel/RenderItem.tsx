@@ -44,7 +44,7 @@ export default RenderItem;
 const styles = StyleSheet.create({
   crslRenderitem: {
     // marginHorizontal: '5%',
-    width: wp('100%') - 60,
+    width: wp('100%') - 30,
     height: wp('50%'),
   },
   crslImage: {

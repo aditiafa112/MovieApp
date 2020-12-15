@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import {Carrousel, Gap, TopBar} from '../../components';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Api from '../../config/api/themoviedb';
-import {fonts} from '../../utils';
+import {colors, fonts} from '../../utils';
 
 const Home = () => {
   const [state, setstate] = useState({
@@ -32,17 +32,18 @@ const Home = () => {
   return (
     <View style={styles.page}>
       <TopBar />
-      <Gap height={16} />
-      <View style={styles.container}>
-        <Text style={styles.sectionName}>Cooming Soon</Text>
+      <View style={styles.body}>
+        <View style={styles.container}>
+          <Text style={styles.sectionName}>Cooming Soon</Text>
+        </View>
+        <Gap height={8} />
+        <Carrousel data={state.movie.results} />
+        <Gap height={8} />
+        <View style={styles.container}>
+          <Text style={styles.sectionName}>Movies</Text>
+        </View>
+        <Gap height={8} />
       </View>
-      <Gap height={8} />
-      <Carrousel data={state.movie.results} />
-      <Gap height={16} />
-      <View style={styles.container}>
-        <Text style={styles.sectionName}>Movies</Text>
-      </View>
-      <Gap height={8} />
     </View>
   );
 };
@@ -52,13 +53,30 @@ export default Home;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background.dark,
+  },
+  body: {
+    backgroundColor: colors.background.light,
+    flex: 1,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   container: {
     paddingHorizontal: 20,
   },
   sectionName: {
-    fontFamily: fonts.primary[500],
+    fontFamily: fonts.primary[800],
     fontSize: hp('2.8%'),
+    color: colors.label.primary,
   },
 });

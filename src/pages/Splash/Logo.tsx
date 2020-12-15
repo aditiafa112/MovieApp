@@ -1,20 +1,21 @@
 import React, {useEffect} from 'react';
 import {Animated, Easing, StyleSheet} from 'react-native';
 import {ILLOGO} from '../../assets';
+import {colors} from '../../utils';
 
 const Logo = () => {
   let opacity = new Animated.Value(0);
 
   const size = opacity.interpolate({
     inputRange: [0, 1],
-    outputRange: [400, 200],
+    outputRange: [200, 110],
   });
 
   const animatedStyles = [
     styles.container,
     {
       opacity,
-      width: 200,
+      width: 100,
       height: size,
     },
   ];
@@ -33,7 +34,7 @@ const Logo = () => {
 
   return (
     <Animated.View style={animatedStyles}>
-      <ILLOGO width={200} height={200} />
+      <ILLOGO width={100} height={100} />
     </Animated.View>
   );
 };
@@ -42,6 +43,6 @@ export default Logo;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.background.dark,
   },
 });

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {colors} from '../../../utils';
 import CrslRenderitem from './RenderItem';
 
 interface CarrouselProps {
@@ -21,7 +22,7 @@ const Carrousel: React.FC<CarrouselProps> = ({data}) => {
         // ref={carouselRef}
         data={data.slice(0, 10)}
         sliderWidth={windowWidth}
-        itemWidth={windowWidth - 60}
+        itemWidth={windowWidth - 30}
         loop={true}
         autoplay={true}
         autoplayInterval={5000}
@@ -33,9 +34,10 @@ const Carrousel: React.FC<CarrouselProps> = ({data}) => {
         dotsLength={data.slice(0, 10).length}
         activeDotIndex={state.activeIndex}
         containerStyle={styles.paginationContainer}
-        dotColor={'#000'}
-        dotStyle={styles.paginationDot}
-        inactiveDotColor={'#000'}
+        dotColor={colors.carrousel.dot.on}
+        dotStyle={styles.dotOn}
+        inactiveDotStyle={styles.dotOff}
+        inactiveDotColor={colors.carrousel.dot.off}
         inactiveDotOpacity={0.2}
         inactiveDotScale={0.8}
         // carouselRef={this._slider1Ref}
@@ -51,8 +53,13 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: '#fff',
   },
-  paginationDot: {
+  dotOff: {
     width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  dotOn: {
+    width: 16,
     height: 8,
     borderRadius: 4,
   },

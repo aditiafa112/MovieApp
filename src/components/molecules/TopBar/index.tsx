@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {fonts} from '../../../utils';
+import {colors, fonts} from '../../../utils';
 
 const TopBar = () => {
   return (
@@ -15,22 +15,14 @@ export default TopBar;
 
 const styles = StyleSheet.create({
   topbar: {
-    backgroundColor: '#f9d342',
+    backgroundColor: colors.background.dark,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
+    alignItems: 'center',
   },
   appName: {
     fontSize: hp('3.2%'),
-    color: '#fff',
+    color: colors.logo.secondary,
     fontFamily: fonts.logo,
   },
 });

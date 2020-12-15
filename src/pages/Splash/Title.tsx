@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Animated, StyleSheet, Text} from 'react-native';
-import {fonts} from '../../utils';
+import {colors, fonts} from '../../utils';
 
 const Title = () => {
   const fadeAnim = new Animated.Value(0);
@@ -23,7 +23,7 @@ const Title = () => {
           opacity: fadeAnim, // Bind opacity to animated value
         },
       ]}>
-      <Text style={styles.appName}>Movie App</Text>
+      <Text style={styles.appName}>The Movie</Text>
     </Animated.View>
   );
 };
@@ -32,10 +32,11 @@ export default Title;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.background.dark,
   },
   appName: {
-    fontSize: 26,
+    fontSize: 16,
     fontFamily: fonts.primary.regular,
+    color: colors.logo.secondary,
   },
 });
