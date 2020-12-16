@@ -1,14 +1,48 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {fonts} from '../../../utils';
+import {colors, fonts} from '../../../utils';
+import {
+  IconMovieActive,
+  IconMovie,
+  IconTV,
+  IconTVActive,
+  IconUser,
+  IconUserActive,
+} from '../../../assets';
 
 const TabItem = ({title, active, onPress, onLongPress}: any) => {
+  const Icon = () => {
+    if (title === 'Movie') {
+      return active ? (
+        <IconMovieActive width={23} height={23} />
+      ) : (
+        <IconMovie width={23} height={23} />
+      );
+    }
+    if (title === 'TV') {
+      return active ? (
+        <IconTVActive width={23} height={23} />
+      ) : (
+        <IconTV width={23} height={23} />
+      );
+    }
+    if (title === 'About') {
+      return active ? (
+        <IconUserActive width={23} height={23} />
+      ) : (
+        <IconUser width={23} height={23} />
+      );
+    }
+    return <IconMovie width={23} height={23} />;
+  };
+
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={onPress}
       onLongPress={onLongPress}>
+      <Icon />
       <Text style={active ? styles.textActive : styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -19,15 +53,15 @@ export default TabItem;
 const styles = StyleSheet.create({
   container: {alignItems: 'center'},
   text: {
-    fontSize: 10,
-    color: '#000',
+    fontSize: 12,
+    color: colors.text.secondary,
     fontFamily: fonts.primary[600],
     marginTop: 4,
   },
   textActive: {
-    fontSize: 10,
-    color: 'blue',
-    fontFamily: fonts.primary[600],
+    fontSize: 12,
+    color: colors.logo.primary,
+    fontFamily: fonts.primary[700],
     marginTop: 4,
   },
 });

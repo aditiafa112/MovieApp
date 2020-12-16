@@ -6,9 +6,9 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {Home, Splash, About} from '../pages';
+import {Home, Splash, About, TvSeries} from '../pages';
 import {BottomNavigator} from '../components';
-import { colors } from '../utils';
+import {colors} from '../utils';
 
 const Stack = createStackNavigator();
 const Tap = createBottomTabNavigator();
@@ -17,6 +17,7 @@ const MainApp = () => {
   return (
     <Tap.Navigator tabBar={(props: any) => <BottomNavigator {...props} />}>
       <Tap.Screen name="Movie" component={Home} />
+      <Tap.Screen name="TV" component={TvSeries} />
       <Tap.Screen name="About" component={About} />
     </Tap.Navigator>
   );
