@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../../utils';
 import CrslRenderitem from './RenderItem';
 
-interface CarrouselProps {
+type CarrouselProps = {
   data: any[];
-}
+};
 
-const Carrousel: React.FC<CarrouselProps> = ({data}) => {
+const Carrousel: FC<CarrouselProps> = ({data}) => {
   const windowWidth = Math.round(Dimensions.get('window').width);
 
   const [state, setstate] = useState({

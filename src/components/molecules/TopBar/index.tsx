@@ -6,7 +6,7 @@ import {colors, fonts} from '../../../utils';
 const TopBar = () => {
   return (
     <View style={styles.topbar}>
-      <Text style={styles.appName}>Movie App</Text>
+      <Text style={styles.appName}>The Movie</Text>
     </View>
   );
 };

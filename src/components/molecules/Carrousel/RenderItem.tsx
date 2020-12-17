@@ -7,7 +7,7 @@ import {
 import {fonts} from '../../../utils';
 // import {ParallaxImage} from 'react-native-snap-carousel';
 
-const RenderItem = ({item}: any, parallaxProps: any) => {
+const RenderItem = ({item}: any) => {
   return (
     <View style={styles.crslRenderitem} key={item.id}>
       {/* <ParallaxImage

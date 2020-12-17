@@ -2,7 +2,8 @@ import React from 'react';
 import {View} from 'react-native';
 
 interface GapProps {
-  height: number;
+  height?: number;
+  width?: number;
 }
 
 const Gap: React.FC<GapProps> = ({height, width}: any) => {
