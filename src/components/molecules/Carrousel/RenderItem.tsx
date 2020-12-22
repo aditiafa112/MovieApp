@@ -5,31 +5,16 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {fonts} from '../../../utils';
-// import {ParallaxImage} from 'react-native-snap-carousel';
 
 const RenderItem = ({item}: any) => {
   return (
     <View style={styles.crslRenderitem} key={item.id}>
-      {/* <ParallaxImage
-        source={{uri: 'https://image.tmdb.org/t/p/w500' + item.backdrop_path}}
-        containerStyle={styles.imageContainer}
-        style={styles.image}
-        parallaxFactor={0.4}
-        {...parallaxProps}
-      /> */}
       <Image
         source={{
           uri: 'https://image.tmdb.org/t/p/w500' + item.backdrop_path,
         }}
         style={styles.crslImage}
       />
-      {/* <LinearGradient
-          colors={['rgba(255,255,255,0)', 'rgba(249,211,66,0.5)']}
-          style={styles.crslTitleWrap}>
-          <Text numberOfLines={1} style={styles.crslTitle}>
-            {item.title}
-          </Text>
-        </LinearGradient> */}
       <View style={styles.crslTitleWrap}>
         <Text style={styles.crslReleaseDate}>{item.release_date}</Text>
         <Text numberOfLines={1} style={styles.crslTitle}>
@@ -44,7 +29,7 @@ export default RenderItem;
 const styles = StyleSheet.create({
   crslRenderitem: {
     // marginHorizontal: '5%',
-    width: wp('100%') - 30,
+    width: wp('100%') - 35,
     height: wp('50%'),
   },
   crslImage: {

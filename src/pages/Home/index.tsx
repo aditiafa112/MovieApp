@@ -51,13 +51,10 @@ const Home = () => {
         <TopBar />
         <View style={styles.body}>
           <Text style={styles.sectionName}>Now Playing</Text>
-
           <Gap height={8} />
           <Carrousel data={state.movie.results} />
           <Gap height={8} />
-
           <Text style={styles.sectionName}>Coming Soon</Text>
-
           <Gap height={8} />
           <FlatList
             data={state.movie.results.slice(0, 8)}
@@ -69,9 +66,7 @@ const Home = () => {
             ListFooterComponent={ListFooterComponent}
           />
           <Gap height={8} />
-
           <Text style={styles.sectionName}>Trending</Text>
-
           <Gap height={8} />
           <FlatList
             data={state.movie.results.slice(0, 8)}
@@ -117,7 +112,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[800],
     fontSize: hp('2.8%'),
     color: colors.label.primary,
-    paddingHorizontal: 20,
+    marginHorizontal: 20,
   },
   cardWrapper: {
     paddingHorizontal: 20,
