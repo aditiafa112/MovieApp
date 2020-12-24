@@ -2,46 +2,57 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, FlatList, ScrollView} from 'react-native';
 import {Card, Carrousel, Gap, TopBar} from '../../components';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import Api from '../../config/api/themoviedb';
+import Api from '../../config/themoviedb';
 import {colors, fonts} from '../../utils';
+import {useDispatch, useSelector} from 'react-redux';
+import {requestUpcomingMovie} from '../../redux/actions/Movie';
 
 const Home = () => {
-  const [state, setstate] = useState({
-    movie: {
-      page: Number,
-      results: [],
-      total_results: Number,
-      total_pages: Number,
-      dates: {
-        maximum: String,
-        minimum: String,
-      },
-    },
-  });
+  const dispatch = useDispatch();
+  const stateGlobal = useSelector((state) => state);
+  // const [state, setstate] = useState({
+  //   movie: {
+  //     page: Number,
+  //     results: [],
+  //     total_results: Number,
+  //     total_pages: Number,
+  //     dates: {
+  //       maximum: String,
+  //       minimum: String,
+  //     },
+  //   },
+  // });
 
-  const getApi = async () => {
-    const getUpcomingMovie = await Api.getUpcomingMovie();
-    setstate({...state, movie: getUpcomingMovie});
-    console.log(getUpcomingMovie.results);
-  };
+  // const getApi = async () => {
+  //   const getUpcomingMovie = await Api.getUpcomingMovie();
+  //   setstate({...state, movie: getUpcomingMovie});
+  // };
 
   useEffect(() => {
-    getApi();
+    // getApi();
+    dispatch(
+      requestUpcomingMovie({
+        api_key: '630b4b8f3dc2b01f4ce453bccef566b4',
+        language: 'en-US',
+        page: '1',
+      }),
+    );
+    console.log('state: ', Array.isArray(stateGlobal.movie.movieComingSoon));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const renderItemComingSoon = ({item}: any) => <Card item={item} />;
-  const renderItemTrending = ({item}: any) => (
-    <Card item={item} horizontal={true} />
-  );
+  // const renderItemComingSoon = ({item}: any) => <Card item={item} />;
+  // const renderItemTrending = ({item}: any) => (
+  //   <Card item={item} horizontal={true} />
+  // );
 
-  const ItemSeparatorComponent = () => {
-    return <Gap width={20} />;
-  };
+  // const ItemSeparatorComponent = () => {
+  //   return <Gap width={20} />;
+  // };
 
-  const ListFooterComponent = () => {
-    return <Gap width={40} />;
-  };
+  // const ListFooterComponent = () => {
+  //   return <Gap width={40} />;
+  // };
 
   return (
     <ScrollView
@@ -50,13 +61,15 @@ const Home = () => {
       <View style={styles.page}>
         <TopBar />
         <View style={styles.body}>
+          <Text>asdasda</Text>
           <Text style={styles.sectionName}>Now Playing</Text>
           <Gap height={8} />
-          <Carrousel data={state.movie.results} />
+          {/* <Carrousel data={state.movie.results} /> */}
+          {/* <Carrousel data={state.movie.results} /> */}
           <Gap height={8} />
           <Text style={styles.sectionName}>Coming Soon</Text>
           <Gap height={8} />
-          <FlatList
+          {/* <FlatList
             data={state.movie.results.slice(0, 8)}
             renderItem={renderItemComingSoon}
             keyExtractor={(item: any) => item.id.toString()}
@@ -64,11 +77,11 @@ const Home = () => {
             style={styles.cardWrapper}
             ItemSeparatorComponent={ItemSeparatorComponent}
             ListFooterComponent={ListFooterComponent}
-          />
+          /> */}
           <Gap height={8} />
           <Text style={styles.sectionName}>Trending</Text>
           <Gap height={8} />
-          <FlatList
+          {/* <FlatList
             data={state.movie.results.slice(0, 8)}
             renderItem={renderItemTrending}
             keyExtractor={(item: any) => item.id.toString()}
@@ -76,7 +89,7 @@ const Home = () => {
             style={styles.cardWrapper}
             ItemSeparatorComponent={ItemSeparatorComponent}
             ListFooterComponent={ListFooterComponent}
-          />
+          /> */}
         </View>
       </View>
     </ScrollView>

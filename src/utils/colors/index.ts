@@ -11,7 +11,6 @@ const mainColors = {
   // blue1: '#0066CB',
   // black1: '#000000',
   // black2: 'rgba(0, 0, 0, 0.5)',
-  // red1: '#E06379',
 
   orange1: '#FFAE31',
   grey1: '#C4C4C4',
@@ -20,6 +19,7 @@ const mainColors = {
   dark1: '#040F2E',
   dark2: '#051748',
   dark3: '#030A1C',
+  red1: '#E06379',
 };
 
 export const colors = {
@@ -46,6 +46,8 @@ export const colors = {
       on: mainColors.dark1,
     },
   },
+  error: mainColors.red1,
+  white: '#fff',
   // secondary: mainColors.dark1,
   // tertiery: mainColors.blue1,
   // white: '#fff',
