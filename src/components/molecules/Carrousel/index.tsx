@@ -24,15 +24,12 @@ const Carrousel: FC<CarrouselProps> = ({data}) => {
     <ShimmerPlaceHolder
       height={wp('50%')}
       width={wp('100%') - 35}
-      visible={true}
+      visible={data[0].id ? true : false}
       isReversed={false}
-      shimmerStyle={[
-        true && {borderRadius: 5, marginHorizontal: 20, marginBottom: 24},
-      ]}>
+      shimmerStyle={[true && styles.containerShimmer]}>
       <View>
         <Carousel
           layout={'default'}
-          // ref={carouselRef}
           data={data.slice(0, 10)}
           sliderWidth={windowWidth}
           itemWidth={windowWidth - 35}
@@ -53,8 +50,6 @@ const Carrousel: FC<CarrouselProps> = ({data}) => {
           inactiveDotColor={colors.carrousel.dot.off}
           inactiveDotOpacity={0.2}
           inactiveDotScale={0.8}
-          // carouselRef={this._slider1Ref}
-          // tappableDots={!!this._slider1Ref}
         />
       </View>
     </ShimmerPlaceHolder>
@@ -63,6 +58,11 @@ const Carrousel: FC<CarrouselProps> = ({data}) => {
 export default Carrousel;
 
 const styles = StyleSheet.create({
+  containerShimmer: {
+    borderRadius: 5,
+    marginHorizontal: 20,
+    marginBottom: 24,
+  },
   paginationContainer: {
     paddingVertical: 8,
     backgroundColor: '#fff',

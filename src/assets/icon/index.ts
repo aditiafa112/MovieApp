@@ -4,6 +4,7 @@ import IconTV from './tv-icon.svg';
 import IconTVActive from './tv-icon-active.svg';
 import IconUser from './user-icon.svg';
 import IconUserActive from './user-icon-active.svg';
+import IconStar from './star.svg';
 
 export {
   IconMovieActive,
@@ -12,4 +13,5 @@ export {
   IconTVActive,
   IconUser,
   IconUserActive,
+  IconStar,
 };

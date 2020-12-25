@@ -4,7 +4,8 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {fonts} from '../../../utils';
+import {IconStar} from '../../../assets';
+import {colors, fonts} from '../../../utils';
 
 const RenderItem = ({item}: any) => {
   return (
@@ -15,6 +16,10 @@ const RenderItem = ({item}: any) => {
         }}
         style={styles.crslImage}
       />
+      <View style={styles.starWrapper}>
+        <IconStar height={10} width={10} />
+        <Text style={styles.starText}>{item.vote_average}</Text>
+      </View>
       <View style={styles.crslTitleWrap}>
         <Text style={styles.crslReleaseDate}>{item.release_date}</Text>
         <Text numberOfLines={1} style={styles.crslTitle}>
@@ -28,7 +33,6 @@ export default RenderItem;
 
 const styles = StyleSheet.create({
   crslRenderitem: {
-    // marginHorizontal: '5%',
     width: wp('100%') - 35,
     height: wp('50%'),
   },
@@ -37,6 +41,24 @@ const styles = StyleSheet.create({
     height: wp('50%'),
     resizeMode: 'cover',
     borderRadius: 10,
+  },
+  starWrapper: {
+    position: 'absolute',
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+    backgroundColor: colors.background.dark,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 40,
+    padding: 5,
+    top: 10,
+  },
+  starText: {
+    color: colors.text.star,
+    fontFamily: fonts.primary.regular,
+    fontSize: 10,
   },
   crslTitleWrap: {
     width: '100%',

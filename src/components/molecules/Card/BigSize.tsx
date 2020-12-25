@@ -13,13 +13,13 @@ type CardProps = {
   item: any;
 };
 
-const HorizontalCard: FC<CardProps> = ({item}) => {
+const BigCard: FC<CardProps> = ({item}) => {
   return (
     <View style={styles.cardWrapper}>
       <View style={styles.card}>
         <ShimmerPlaceHolder
-          height={wp('100%') / 3.5}
-          width={wp('50%') + 10}
+          height={wp('100%') / 1.5 - 40}
+          width={wp('100%')}
           visible={item.backdrop_path ? true : false}
           isReversed={false}
           shimmerStyle={[true && styles.imageShimmer]}>
@@ -31,14 +31,14 @@ const HorizontalCard: FC<CardProps> = ({item}) => {
             resizeMode={'cover'}
           />
           <View style={styles.starWrapper}>
-            <IconStar height={10} width={10} />
+            <IconStar height={13} width={13} />
             <Text style={styles.starText}>{item.vote_average}</Text>
           </View>
         </ShimmerPlaceHolder>
       </View>
       <ShimmerPlaceHolder
         height={16}
-        width={wp('50%') + 10}
+        width={wp('50%')}
         visible={item.title ? true : false}
         isReversed={false}
         shimmerStyle={[true && styles.titleShimmer]}>
@@ -56,63 +56,97 @@ const HorizontalCard: FC<CardProps> = ({item}) => {
           {item.release_date && dateFormat(new Date(item.release_date), true)}
         </Text>
       </ShimmerPlaceHolder>
+      <ShimmerPlaceHolder
+        height={12}
+        width={wp('70%')}
+        visible={item.overview ? true : false}
+        isReversed={false}
+        shimmerStyle={[true && styles.descShimmer]}>
+        <Text style={styles.desc} numberOfLines={2}>
+          {item.overview}
+        </Text>
+      </ShimmerPlaceHolder>
     </View>
   );
 };
 
-export default HorizontalCard;
+export default BigCard;
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    width: windowWidth / 2 + 10,
-  },
-  card: {
-    width: windowWidth / 2 + 10,
-    height: windowWidth / 3.5,
-    borderRadius: 5,
+    width: windowWidth - 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: colors.border,
     overflow: 'hidden',
   },
+  card: {
+    width: windowWidth - 40,
+    height: windowWidth / 1.5 - 40,
+  },
   image: {
-    width: windowWidth / 2 + 10,
-    height: windowWidth / 3.5,
+    width: windowWidth - 40,
+    height: windowWidth / 1.5 - 40,
     backgroundColor: '#c4c4c4',
   },
   imageShimmer: {
     borderRadius: 5,
-  },
-  starWrapper: {
-    position: 'absolute',
-    borderBottomRightRadius: 10,
-    backgroundColor: colors.background.dark,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 40,
-    padding: 5,
-  },
-  starText: {
-    color: colors.text.star,
-    fontFamily: fonts.primary.regular,
-    fontSize: 10,
   },
   title: {
     fontFamily: fonts.primary[700],
     fontSize: 16,
     color: colors.text.primary,
     marginTop: 8,
+    paddingLeft: 10,
   },
   titleShimmer: {
     borderRadius: 5,
     marginTop: 12,
+    marginLeft: 10,
   },
   dateRelease: {
     fontFamily: fonts.primary[500],
     fontSize: 10,
     color: colors.text.secondary,
+    paddingLeft: 10,
   },
   dateReleaseShimmer: {
     borderRadius: 5,
     marginTop: 4,
+    marginLeft: 10,
+  },
+  desc: {
+    fontFamily: fonts.primary[500],
+    fontSize: 12,
+    color: colors.text.primary,
+    marginTop: 4,
+    paddingRight: 20,
+    paddingLeft: 10,
+    paddingBottom: 10,
+  },
+  descShimmer: {
+    borderRadius: 5,
+    marginTop: 8,
+    marginLeft: 10,
+    marginBottom: 20,
+  },
+  starWrapper: {
+    position: 'absolute',
+    borderBottomRightRadius: 5,
+    borderTopRightRadius: 5,
+    // padding: 5,
+    backgroundColor: colors.background.dark,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 50,
+    padding: 5,
+    marginTop: 10,
+  },
+  starText: {
+    color: colors.text.star,
+    fontFamily: fonts.primary.regular,
+    fontSize: 13,
   },
 });

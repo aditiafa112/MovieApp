@@ -5,7 +5,6 @@ const mainColors = {
   // dark2: '#495A75',
   // dark3: '#8092AF',
   // grey1: '#7D8797',
-  // grey2: '#E9E9E9',
   // grey3: '#EDEEF0',
   // grey4: '#B1B7C2',
   // blue1: '#0066CB',
@@ -16,10 +15,12 @@ const mainColors = {
   grey1: '#C4C4C4',
   grey2: '#D9D9D9',
   grey3: '#EDEDEE',
+  grey4: '#E9E9E9',
   dark1: '#040F2E',
   dark2: '#051748',
   dark3: '#030A1C',
   red1: '#E06379',
+  yellow1: '#FFC107',
 };
 
 export const colors = {
@@ -39,6 +40,7 @@ export const colors = {
   text: {
     primary: mainColors.dark3,
     secondary: mainColors.grey1,
+    star: mainColors.yellow1,
   },
   carrousel: {
     dot: {
@@ -48,6 +50,9 @@ export const colors = {
   },
   error: mainColors.red1,
   white: '#fff',
+  border: mainColors.grey4,
+  warning: mainColors.yellow1,
+
   // secondary: mainColors.dark1,
   // tertiery: mainColors.blue1,
   // white: '#fff',
@@ -74,7 +79,6 @@ export const colors = {
   //     text: mainColors.grey4,
   //   },
   // },
-  // border: mainColors.grey2,
   // cardLight: mainColors.green2,
   // loadingBackground: mainColors.black2,
   // error: mainColors.red1,

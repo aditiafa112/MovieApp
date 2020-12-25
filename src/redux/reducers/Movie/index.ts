@@ -8,9 +8,9 @@ import {
 } from '../../constants';
 
 const initialState = {
-  movieComingSoon: [],
-  movieNowPlaying: [],
-  movieTrending: [],
+  movieComingSoon: [{}, {}, {}],
+  movieNowPlaying: [{}, {}, {}],
+  movieTrending: [{}, {}, {}],
 };
 
 const Movie = (state: any = initialState, action: any) => {
