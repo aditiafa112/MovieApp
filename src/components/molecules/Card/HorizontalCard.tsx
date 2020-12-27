@@ -1,5 +1,12 @@
 import React, {FC} from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
@@ -11,11 +18,12 @@ const windowWidth = Dimensions.get('window').width;
 
 type CardProps = {
   item: any;
+  onPress: any;
 };
 
-const HorizontalCard: FC<CardProps> = ({item}) => {
+const HorizontalCard: FC<CardProps> = ({item, onPress}) => {
   return (
-    <View style={styles.cardWrapper}>
+    <TouchableOpacity style={styles.cardWrapper} onPress={onPress}>
       <View style={styles.card}>
         <ShimmerPlaceHolder
           height={wp('100%') / 3.5}
@@ -56,7 +64,7 @@ const HorizontalCard: FC<CardProps> = ({item}) => {
           {item.release_date && dateFormat(new Date(item.release_date), true)}
         </Text>
       </ShimmerPlaceHolder>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -88,13 +96,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: 40,
     padding: 5,
   },
   starText: {
     color: colors.text.star,
     fontFamily: fonts.primary.regular,
     fontSize: 10,
+    marginLeft: 5,
   },
   title: {
     fontFamily: fonts.primary[700],

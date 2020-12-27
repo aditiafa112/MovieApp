@@ -13,7 +13,7 @@ enum Months {
   December,
 }
 
-export const dateFormat = (oldDate: Date, shortMonth?: boolean) => {
+export const dateFormat = (oldDate: Date, shortMonth?: boolean, format = 1) => {
   const year = oldDate.getFullYear();
   let month = Months[oldDate.getMonth() + 1];
   if (shortMonth) {
@@ -21,5 +21,9 @@ export const dateFormat = (oldDate: Date, shortMonth?: boolean) => {
   }
   const date = oldDate.getDate();
 
-  return `${month} ${date}, ${year}`;
+  if (format === 1) {
+    return `${month} ${date}, ${year}`;
+  } else if (format === 2) {
+    return `${date} ${month} ${year}`;
+  }
 };

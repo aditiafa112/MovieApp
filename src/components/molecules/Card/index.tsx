@@ -1,5 +1,12 @@
 import React, {FC} from 'react';
-import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {colors, fonts} from '../../../utils';
 import HorizontalCard from './HorizontalCard';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,15 +22,21 @@ type CardProps = {
   item: any;
   horizontal?: boolean;
   bigSize?: boolean;
+  onPress?: any;
 };
 
-const Card: FC<CardProps> = ({item, horizontal = false, bigSize = false}) => {
+const Card: FC<CardProps> = ({
+  item,
+  horizontal = false,
+  bigSize = false,
+  onPress,
+}) => {
   if (horizontal) {
-    return <HorizontalCard item={item} />;
+    return <HorizontalCard item={item} onPress={onPress} />;
   }
 
   if (bigSize) {
-    return <BigCard item={item} />;
+    return <BigCard item={item} onPress={onPress} />;
   }
 
   return (
@@ -33,7 +46,7 @@ const Card: FC<CardProps> = ({item, horizontal = false, bigSize = false}) => {
       visible={item.title ? true : false}
       isReversed={false}
       shimmerStyle={[true && styles.cardWrapperShimmer]}>
-      <View style={styles.cardWrapper}>
+      <TouchableOpacity style={styles.cardWrapper} onPress={onPress}>
         <View style={styles.card}>
           <Image
             source={{
@@ -50,7 +63,7 @@ const Card: FC<CardProps> = ({item, horizontal = false, bigSize = false}) => {
         <Text style={styles.title} numberOfLines={1}>
           {item.title}
         </Text>
-      </View>
+      </TouchableOpacity>
     </ShimmerPlaceHolder>
   );
 };
@@ -85,13 +98,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: 40,
     padding: 5,
   },
   starText: {
     color: colors.text.star,
     fontFamily: fonts.primary.regular,
     fontSize: 10,
+    marginLeft: 5,
   },
   title: {
     fontFamily: fonts.primary[700],

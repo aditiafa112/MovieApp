@@ -5,19 +5,31 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {colors, fonts} from '../../utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {requestUpcomingMovie} from '../../redux/actions/Movie';
+import {upcomingMovieData} from '../../config/themoviedb';
 
-const Home = () => {
+const RenderItemPopular = ({item, onPress}: any) => {
+  return (
+    <View>
+      <Card item={item} bigSize={true} onPress={onPress} />
+      <Gap height={10} />
+    </View>
+  );
+};
+
+const ItemSeparatorComponent = () => {
+  return <Gap width={20} />;
+};
+
+const ListFooterComponent = () => {
+  return <Gap width={40} />;
+};
+
+const Home = ({navigation}: any) => {
   const dispatch = useDispatch();
   const stateGlobal: any = useSelector((state) => state);
 
   const getData = async () => {
-    await dispatch(
-      requestUpcomingMovie({
-        api_key: '630b4b8f3dc2b01f4ce453bccef566b4',
-        language: 'en-US',
-        page: '1',
-      }),
-    );
+    await dispatch(requestUpcomingMovie(upcomingMovieData()));
   };
 
   useEffect(() => {
@@ -25,18 +37,19 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const renderItemComingSoon = ({item}: any) => <Card item={item} />;
-  const renderItemTrending = ({item}: any) => (
-    <Card item={item} horizontal={true} />
+  const renderItemComingSoon = ({item}: any) => (
+    <Card
+      item={item}
+      onPress={() => navigation.navigate('DetailsMovie', {movieData: item})}
+    />
   );
-
-  const ItemSeparatorComponent = () => {
-    return <Gap width={20} />;
-  };
-
-  const ListFooterComponent = () => {
-    return <Gap width={40} />;
-  };
+  const renderItemTrending = ({item}: any) => (
+    <Card
+      item={item}
+      horizontal={true}
+      onPress={() => navigation.navigate('DetailsMovie', {movieData: item})}
+    />
+  );
 
   return (
     <ScrollView
@@ -48,7 +61,10 @@ const Home = () => {
         <View style={styles.body}>
           <Text style={styles.sectionName}>Now Playing</Text>
           <Gap height={8} />
-          <Carrousel data={stateGlobal.movie.movieComingSoon} />
+          <Carrousel
+            data={stateGlobal.movie.movieComingSoon}
+            nav={navigation}
+          />
           <Gap height={8} />
           <Text style={styles.sectionName}>Upcoming</Text>
           <Gap height={8} />
@@ -77,14 +93,19 @@ const Home = () => {
           <Text style={styles.sectionName}>Popular</Text>
           <Gap height={8} />
           <View style={styles.cardWrapper}>
-            {stateGlobal.movie.movieComingSoon.map((item: any, index: any) => {
-              return (
-                <View key={index}>
-                  <Card item={item} bigSize={true} />
-                  <Gap height={10} />
-                </View>
-              );
-            })}
+            {stateGlobal.movie.movieComingSoon
+              .slice(0, 10)
+              .map((item: any, index: any) => {
+                return (
+                  <RenderItemPopular
+                    key={index}
+                    item={item}
+                    onPress={() =>
+                      navigation.navigate('DetailsMovie', {movieData: item})
+                    }
+                  />
+                );
+              })}
           </View>
         </View>
       </View>

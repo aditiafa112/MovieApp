@@ -6,7 +6,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {Home, Splash, About, TvSeries} from '../pages';
+import {Home, Splash, About, TvSeries, DetailsMovie} from '../pages';
 import {BottomNavigator} from '../components';
 import {colors} from '../utils';
 
@@ -41,6 +41,7 @@ const Router = () => {
         }}>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="MainApp" component={MainApp} />
+        <Stack.Screen name="DetailsMovie" component={DetailsMovie} />
       </Stack.Navigator>
     </NavigationContainer>
   );
