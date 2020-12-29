@@ -1,12 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Modal,
-  TouchableHighlight,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {IMAGE_ASSETS} from '../../config';
 import {
   widthPercentageToDP as wp,
@@ -24,6 +17,7 @@ import {
 import {detailsMovieData} from '../../config/themoviedb';
 import LinearGradient from 'react-native-linear-gradient';
 import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
@@ -31,15 +25,17 @@ const DetailsMovie = ({route}: any) => {
   const {movieData} = route.params;
   const dispatch = useDispatch();
   const stateGlobal: any = useSelector((state) => state);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const getData = async () => {
-    await dispatch(clearDetailsMovie());
     await dispatch(requestDetailsMovie(detailsMovieData(movieData.id)));
   };
 
   useEffect(() => {
     getData();
+
+    return () => {
+      dispatch(clearDetailsMovie());
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -77,13 +73,6 @@ const DetailsMovie = ({route}: any) => {
               </Text>
             </View>
           </View>
-          <TouchableHighlight
-            style={styles.modalOpen}
-            onPress={() => {
-              setModalVisible(!modalVisible);
-            }}>
-            <Text style={styles.modalOpenText}>Watch Trailer</Text>
-          </TouchableHighlight>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Status</Text>
@@ -150,21 +139,27 @@ const DetailsMovie = ({route}: any) => {
               </Text>
             )}
           </Text>
+          <View style={{padding: 5}}>
+            {stateGlobal.movie.movieDetails.videos &&
+              stateGlobal.movie.movieDetails.videos.results
+                .filter((item: any) => item.site === 'YouTube')
+                .map((video: any, index: number) => {
+                  return (
+                    <YoutubePlayer
+                      key={index}
+                      height={200}
+                      videoId={video.key}
+                      initialPlayerParams={{
+                        preventFullScreen: true,
+                        controls: false,
+                      }}
+                    />
+                  );
+                })}
+          </View>
+          <Gap height={50} />
         </View>
       </ScrollView>
-
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <TouchableHighlight
-          style={styles.modalClose}
-          onPress={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          <Text style={styles.modalCloseText}>Hide Modal</Text>
-        </TouchableHighlight>
-        <View style={styles.modalContent}>
-          <Text>content</Text>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -193,14 +188,11 @@ const styles = StyleSheet.create({
   },
   scroll: {
     borderRadius: 20,
-    display: 'flex',
-    flex: 1,
   },
   page: {
     backgroundColor: colors.background.light,
     paddingHorizontal: 10,
     borderRadius: 20,
-    height: hp('100%'),
   },
   head: {
     display: 'flex',
@@ -265,36 +257,5 @@ const styles = StyleSheet.create({
     color: colors.label.primary,
     fontFamily: fonts.primary[700],
     fontSize: 14,
-  },
-  modalOpen: {
-    backgroundColor: colors.background.dark,
-    borderRadius: 5,
-    paddingVertical: 10,
-    marginHorizontal: 5,
-    marginBottom: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalOpenText: {
-    color: colors.text.star,
-    fontSize: 14,
-    fontFamily: fonts.primary[800],
-  },
-  modalClose: {
-    backgroundColor: colors.text.star,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  modalCloseText: {
-    color: colors.background.dark,
-    fontSize: 14,
-    fontFamily: fonts.primary[800],
-  },
-  modalContent: {
-    display: 'flex',
-    flex: 1,
-    backgroundColor: '#000',
-    opacity: 0.9,
   },
 });
