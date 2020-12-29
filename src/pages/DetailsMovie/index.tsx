@@ -1,5 +1,12 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Modal,
+  TouchableHighlight,
+} from 'react-native';
 import {IMAGE_ASSETS} from '../../config';
 import {
   widthPercentageToDP as wp,
@@ -9,9 +16,32 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Gap} from '../../components';
 import {colors, dateFormat, fonts} from '../../utils';
 import {IconStar} from '../../assets';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  clearDetailsMovie,
+  requestDetailsMovie,
+} from '../../redux/actions/Movie';
+import {detailsMovieData} from '../../config/themoviedb';
+import LinearGradient from 'react-native-linear-gradient';
+import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 const DetailsMovie = ({route}: any) => {
   const {movieData} = route.params;
+  const dispatch = useDispatch();
+  const stateGlobal: any = useSelector((state) => state);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const getData = async () => {
+    await dispatch(clearDetailsMovie());
+    await dispatch(requestDetailsMovie(detailsMovieData(movieData.id)));
+  };
+
+  useEffect(() => {
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <View style={styles.pageWrapper}>
@@ -47,33 +77,94 @@ const DetailsMovie = ({route}: any) => {
               </Text>
             </View>
           </View>
+          <TouchableHighlight
+            style={styles.modalOpen}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <Text style={styles.modalOpenText}>Watch Trailer</Text>
+          </TouchableHighlight>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Status</Text>
           </View>
+          <Text style={styles.value}>
+            {stateGlobal.movie.movieDetails.status || <ShimmerPlaceHolder />}
+          </Text>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Original Title</Text>
           </View>
+          <Text style={styles.value}>{movieData.original_title}</Text>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Genre</Text>
           </View>
+          <Text style={styles.value}>
+            {stateGlobal.movie.movieDetails.genres ? (
+              stateGlobal.movie.movieDetails.genres.map((genre: any) => {
+                return `${genre.name}, `;
+              })
+            ) : (
+              <Text style={styles.value}>
+                <ShimmerPlaceHolder />
+              </Text>
+            )}
+          </Text>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Overview</Text>
           </View>
+          <Text style={styles.value}>{movieData.overview}</Text>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Production Companies</Text>
           </View>
+          <Text style={styles.value}>
+            {stateGlobal.movie.movieDetails.production_companies ? (
+              stateGlobal.movie.movieDetails.production_companies.map(
+                (genre: any) => {
+                  return `${genre.name}, `;
+                },
+              )
+            ) : (
+              <Text style={styles.value}>
+                <ShimmerPlaceHolder />
+              </Text>
+            )}
+          </Text>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Production Countries</Text>
           </View>
-          <Text style={styles.overview}>{movieData.overview}</Text>
+          <Text style={styles.value}>
+            {stateGlobal.movie.movieDetails.production_countries ? (
+              stateGlobal.movie.movieDetails.production_countries.map(
+                (genre: any) => {
+                  return `${genre.name}, `;
+                },
+              )
+            ) : (
+              <Text style={styles.value}>
+                <ShimmerPlaceHolder />
+              </Text>
+            )}
+          </Text>
         </View>
       </ScrollView>
+
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <TouchableHighlight
+          style={styles.modalClose}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <Text style={styles.modalCloseText}>Hide Modal</Text>
+        </TouchableHighlight>
+        <View style={styles.modalContent}>
+          <Text>content</Text>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -157,7 +248,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[400],
     fontSize: 13,
   },
-  overview: {
+  value: {
     color: colors.text.primary,
     fontFamily: fonts.primary[400],
     fontSize: 14,
@@ -174,5 +265,36 @@ const styles = StyleSheet.create({
     color: colors.label.primary,
     fontFamily: fonts.primary[700],
     fontSize: 14,
+  },
+  modalOpen: {
+    backgroundColor: colors.background.dark,
+    borderRadius: 5,
+    paddingVertical: 10,
+    marginHorizontal: 5,
+    marginBottom: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalOpenText: {
+    color: colors.text.star,
+    fontSize: 14,
+    fontFamily: fonts.primary[800],
+  },
+  modalClose: {
+    backgroundColor: colors.text.star,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  modalCloseText: {
+    color: colors.background.dark,
+    fontSize: 14,
+    fontFamily: fonts.primary[800],
+  },
+  modalContent: {
+    display: 'flex',
+    flex: 1,
+    backgroundColor: '#000',
+    opacity: 0.9,
   },
 });

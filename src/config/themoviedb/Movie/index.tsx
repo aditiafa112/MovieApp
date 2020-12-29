@@ -7,3 +7,12 @@ export const upcomingMovieData = (page = 1): any => {
     page: page,
   };
 };
+
+export const detailsMovieData = (movieId: number, append = 'videos'): any => {
+  return {
+    movie_id: movieId,
+    api_key: API_KEY,
+    language: API_LANGUAGE,
+    append_to_response: append,
+  };
+};

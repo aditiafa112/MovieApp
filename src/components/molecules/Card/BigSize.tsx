@@ -50,7 +50,7 @@ const BigCard: FC<CardProps> = ({item, onPress}) => {
         visible={item.title ? true : false}
         isReversed={false}
         shimmerStyle={[true && styles.titleShimmer]}>
-        <Text style={styles.title} numberOfLines={1}>
+        <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit>
           {item.title}
         </Text>
       </ShimmerPlaceHolder>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.primary[700],
-    fontSize: 16,
+    fontSize: wp('100%') <= 599 ? 16 : 20,
     color: colors.text.primary,
     marginTop: 8,
     paddingLeft: 10,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   dateRelease: {
     fontFamily: fonts.primary[500],
-    fontSize: 10,
+    fontSize: wp('100%') <= 599 ? 10 : 14,
     color: colors.text.secondary,
     paddingLeft: 10,
   },
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   desc: {
     fontFamily: fonts.primary[500],
-    fontSize: 12,
+    fontSize: wp('100%') <= 599 ? 12 : 16,
     color: colors.text.primary,
     marginTop: 4,
     paddingRight: 20,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   starText: {
     color: colors.text.star,
     fontFamily: fonts.primary.regular,
-    fontSize: 13,
+    fontSize: wp('100%') <= 599 ? 13 : 17,
     marginLeft: 5,
   },
 });

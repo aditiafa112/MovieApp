@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   starText: {
     color: colors.text.star,
     fontFamily: fonts.primary.regular,
-    fontSize: 10,
+    fontSize: wp('100%') <= 599 ? 10 : 14,
   },
   crslTitleWrap: {
     width: '100%',

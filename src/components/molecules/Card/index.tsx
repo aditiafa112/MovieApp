@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
   starText: {
     color: colors.text.star,
     fontFamily: fonts.primary.regular,
-    fontSize: 10,
+    fontSize: wp('100%') <= 599 ? 10 : 14,
     marginLeft: 5,
   },
   title: {
     fontFamily: fonts.primary[700],
-    fontSize: 16,
+    fontSize: wp('100%') <= 599 ? 16 : 20,
     color: colors.text.primary,
     marginTop: 8,
   },
