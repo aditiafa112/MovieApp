@@ -1,54 +1,89 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import React, {Fragment, useEffect, useState} from 'react';
+import {StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
 import {IMAGE_ASSETS} from '../../config';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Gap} from '../../components';
 import {colors, dateFormat, fonts} from '../../utils';
-import {IconStar} from '../../assets';
+import {
+  IconBackArrow,
+  IconEmptyHeart,
+  IconFillHeart,
+  IconStar,
+} from '../../assets';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   clearDetailsMovie,
+  deleteFavoriteMovie,
   requestDetailsMovie,
-} from '../../redux/actions/Movie';
+  setFavoriteMovie,
+  updateFavoriteMovie,
+} from '../../redux/actions';
 import {detailsMovieData} from '../../config/themoviedb';
 import LinearGradient from 'react-native-linear-gradient';
 import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import {getData, storeData} from '../../utils';
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
-const DetailsMovie = ({route}: any) => {
+const DetailsMovie = ({navigation, route}: any) => {
   const {movieData} = route.params;
   const dispatch = useDispatch();
   const stateGlobal: any = useSelector((state) => state);
+  const [menuBackdrop, setMenuBackdrop] = useState(true);
+  const [isLove, setIsLove] = useState({});
 
-  const getData = async () => {
+  const initData = async () => {
     await dispatch(requestDetailsMovie(detailsMovieData(movieData.id)));
+    // await storeData('favMovie', [{id: 1111}, {id: 2222}, {id: 3333}]);  //jus for fill storage
+    // getData('favMovie').then((res) => {
+    //   // console.log(res);
+    //   const findIsLove = res.find((x: any) => x.id === movieData.id);
+    //   setIsLove(findIsLove ? true : false);
+    // });
+  };
+
+  const findIsLove = () => {
+    const res = stateGlobal.favMovie.favMovie.find(
+      (x: any) => x.id === movieData.id,
+    );
+    setIsLove(res ? true : false);
   };
 
   useEffect(() => {
-    getData();
-
+    initData();
     return () => {
       dispatch(clearDetailsMovie());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    findIsLove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stateGlobal]);
+
   return (
     <View style={styles.pageWrapper}>
       <View style={styles.backdropWrapper}>
-        <Image
+        <ImageBackground
           style={styles.backdropImage}
           source={{uri: IMAGE_ASSETS + movieData.backdrop_path}}
           resizeMode="cover"
         />
       </View>
-      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scroll}
+        showsVerticalScrollIndicator={false}
+        onScroll={(e: any) => {
+          e.nativeEvent.contentOffset.y <= 40
+            ? setMenuBackdrop(true)
+            : setMenuBackdrop(false);
+        }}>
         <Gap height={wp('100%') / 2 - 20} />
         <View style={styles.page}>
           <View style={styles.head}>
@@ -63,9 +98,7 @@ const DetailsMovie = ({route}: any) => {
                 <IconStar height={10} width={10} />
                 <Text style={styles.starText}>{movieData.vote_average}</Text>
               </View>
-              <Text style={styles.title} numberOfLines={1}>
-                {movieData.title}
-              </Text>
+              <Text style={styles.title}>{movieData.title}</Text>
               <Text style={styles.release}>
                 Release: {''}
                 {movieData.release_date &&
@@ -84,7 +117,11 @@ const DetailsMovie = ({route}: any) => {
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Original Title</Text>
           </View>
-          <Text style={styles.value}>{movieData.original_title}</Text>
+          <Text style={styles.value}>
+            {stateGlobal.movie.movieDetails.original_title || (
+              <ShimmerPlaceHolder />
+            )}
+          </Text>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Genre</Text>
@@ -104,7 +141,9 @@ const DetailsMovie = ({route}: any) => {
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Overview</Text>
           </View>
-          <Text style={styles.value}>{movieData.overview}</Text>
+          <Text style={styles.value}>
+            {stateGlobal.movie.movieDetails.overview || <ShimmerPlaceHolder />}
+          </Text>
           <View style={styles.labelWrapper}>
             <Text style={styles.slashLabel}> | </Text>
             <Text style={styles.label}>Production Companies</Text>
@@ -145,21 +184,54 @@ const DetailsMovie = ({route}: any) => {
                 .filter((item: any) => item.site === 'YouTube')
                 .map((video: any, index: number) => {
                   return (
-                    <YoutubePlayer
-                      key={index}
-                      height={200}
-                      videoId={video.key}
-                      initialPlayerParams={{
-                        preventFullScreen: true,
-                        controls: false,
-                      }}
-                    />
+                    <Fragment key={index}>
+                      <YoutubePlayer
+                        height={200}
+                        videoId={video.key}
+                        initialPlayerParams={{
+                          preventFullScreen: true,
+                          controls: false,
+                        }}
+                      />
+                      <Gap height={20} />
+                    </Fragment>
                   );
                 })}
           </View>
-          <Gap height={50} />
+          <Gap
+            height={
+              stateGlobal.movie.movieDetails.original_title ? 50 : hp('100%')
+            }
+          />
         </View>
       </ScrollView>
+      {menuBackdrop && (
+        <View style={styles.wrappeBackdropMenu}>
+          <TouchableOpacity
+            style={styles.wrapperBackButton}
+            onPress={() => navigation.goBack()}>
+            <IconBackArrow height={35} width={35} />
+          </TouchableOpacity>
+          {isLove === false && (
+            <TouchableOpacity
+              style={styles.wrapperLoveButton}
+              onPress={async () =>
+                await dispatch(updateFavoriteMovie(movieData))
+              }>
+              <IconEmptyHeart height={35} width={35} />
+            </TouchableOpacity>
+          )}
+          {isLove === true && (
+            <TouchableOpacity
+              style={styles.wrapperLoveButton}
+              onPress={async () =>
+                await dispatch(deleteFavoriteMovie(movieData))
+              }>
+              <IconFillHeart height={35} width={35} />
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
     </View>
   );
 };
@@ -185,6 +257,22 @@ const styles = StyleSheet.create({
   },
   backdropImage: {
     aspectRatio: 2 / 1,
+  },
+  wrappeBackdropMenu: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginVertical: 20,
+    position: 'absolute',
+    width: '100%',
+  },
+  wrapperBackButton: {
+    paddingHorizontal: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: colors.background.dark,
+  },
+  wrapperLoveButton: {
+    marginRight: 20,
   },
   scroll: {
     borderRadius: 20,

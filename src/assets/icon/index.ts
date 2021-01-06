@@ -5,6 +5,9 @@ import IconTVActive from './tv-icon-active.svg';
 import IconUser from './user-icon.svg';
 import IconUserActive from './user-icon-active.svg';
 import IconStar from './star.svg';
+import IconEmptyHeart from './empty-heart.svg';
+import IconFillHeart from './fill-heart.svg';
+import IconBackArrow from './back-arrow.svg';
 
 export {
   IconMovieActive,
@@ -14,4 +17,7 @@ export {
   IconUser,
   IconUserActive,
   IconStar,
+  IconEmptyHeart,
+  IconFillHeart,
+  IconBackArrow,
 };

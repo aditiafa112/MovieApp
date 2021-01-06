@@ -1,11 +1,20 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {setFavoriteMovie} from '../../redux/actions';
 import {colors} from '../../utils';
 import Logo from './Logo';
 import Title from './Title';
 
 const Splash = ({navigation}: any) => {
+  const dispatch = useDispatch();
+
+  const initData = async () => {
+    await dispatch(setFavoriteMovie());
+  };
+
   useEffect(() => {
+    initData();
     setTimeout(() => {
       navigation.replace('MainApp');
     }, 3500);

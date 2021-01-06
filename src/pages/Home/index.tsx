@@ -54,7 +54,7 @@ const Home = ({navigation}: any) => {
           bigSize={true}
           onPress={() => navigation.navigate('DetailsMovie', {movieData: item})}
         />
-        <Gap height={10} />
+        <Gap height={20} />
       </View>
     );
   };
