@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {TopBar} from '../../components';
 import {colors} from '../../utils';
 
-const TvSeries = () => {
+const Favorite = () => {
   return (
     <View style={styles.page}>
       <TopBar />
@@ -16,7 +16,7 @@ const TvSeries = () => {
   );
 };
 
-export default TvSeries;
+export default Favorite;
 
 const styles = StyleSheet.create({
   page: {

@@ -6,7 +6,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {Home, Splash, About, TvSeries, DetailsMovie} from '../pages';
+import {Home, Splash, About, Favorite, DetailsMovie} from '../pages';
 import {BottomNavigator} from '../components';
 import {colors} from '../utils';
 
@@ -17,7 +17,7 @@ const MainApp = () => {
   return (
     <Tap.Navigator tabBar={(props: any) => <BottomNavigator {...props} />}>
       <Tap.Screen name="Movie" component={Home} />
-      <Tap.Screen name="TV" component={TvSeries} />
+      <Tap.Screen name="Favorite" component={Favorite} />
       <Tap.Screen name="About" component={About} />
     </Tap.Navigator>
   );

@@ -8,6 +8,8 @@ import IconStar from './star.svg';
 import IconEmptyHeart from './empty-heart.svg';
 import IconFillHeart from './fill-heart.svg';
 import IconBackArrow from './back-arrow.svg';
+import IconListActive from './list-icon-active.svg';
+import IconList from './list-icon.svg';
 
 export {
   IconMovieActive,
@@ -20,4 +22,6 @@ export {
   IconEmptyHeart,
   IconFillHeart,
   IconBackArrow,
+  IconListActive,
+  IconList,
 };

@@ -1,7 +1,7 @@
 import Splash from './Splash';
 import Home from './Home';
 import About from './About';
-import TvSeries from './TvSeries';
+import Favorite from './Favorite';
 import DetailsMovie from './DetailsMovie';
 
-export {Splash, Home, About, TvSeries, DetailsMovie};
+export {Splash, Home, About, Favorite, DetailsMovie};

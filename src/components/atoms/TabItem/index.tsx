@@ -9,6 +9,8 @@ import {
   IconTVActive,
   IconUser,
   IconUserActive,
+  IconListActive,
+  IconList,
 } from '../../../assets';
 
 const TabItem = ({title, active, onPress, onLongPress}: any) => {
@@ -20,11 +22,11 @@ const TabItem = ({title, active, onPress, onLongPress}: any) => {
         <IconMovie width={23} height={23} />
       );
     }
-    if (title === 'TV') {
+    if (title === 'Favorite') {
       return active ? (
-        <IconTVActive width={23} height={23} />
+        <IconListActive width={23} height={23} />
       ) : (
-        <IconTV width={23} height={23} />
+        <IconList width={23} height={23} />
       );
     }
     if (title === 'About') {
