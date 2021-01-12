@@ -44,6 +44,7 @@ export const deleteFavoriteMovie = (data?: any) => {
       getData(storageKey).then((res) => {
         res = res.filter((item: any) => item.id !== data.id);
         storeData(storageKey, res);
+        console.log('res: ', res);
         dispatch({type: UPDATE_FAVORITE_MOVIE_LIST, value: res});
       });
     } catch (error) {

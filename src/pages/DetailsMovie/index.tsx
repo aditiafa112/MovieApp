@@ -19,14 +19,12 @@ import {
   clearDetailsMovie,
   deleteFavoriteMovie,
   requestDetailsMovie,
-  setFavoriteMovie,
   updateFavoriteMovie,
 } from '../../redux/actions';
 import {detailsMovieData} from '../../config/themoviedb';
 import LinearGradient from 'react-native-linear-gradient';
 import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import {getData, storeData} from '../../utils';
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
