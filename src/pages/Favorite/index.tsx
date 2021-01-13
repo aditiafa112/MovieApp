@@ -1,15 +1,30 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {TopBar} from '../../components';
 import {colors} from '../../utils';
+import {IMAGE_ASSETS} from '../../config';
 
 const Favorite = () => {
+  const stateGlobal: any = useSelector((state) => state);
+
+  const renderItem = ({item}: any) => (
+    <View>
+      <Image source={{uri: IMAGE_ASSETS + item.backdrop_path}} />
+      <Text style={{color: '#000'}}>{item.title}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.page}>
       <TopBar />
       <View style={styles.body}>
         <View style={styles.container}>
-          <Text>About Page</Text>
+          <FlatList
+            data={stateGlobal.favMovie.favMovie}
+            renderItem={renderItem}
+            keyExtractor={(item: any, index: any) => index.toString()}
+          />
         </View>
       </View>
     </View>
