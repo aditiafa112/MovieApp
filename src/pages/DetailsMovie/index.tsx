@@ -39,7 +39,6 @@ const DetailsMovie = ({navigation, route}: any) => {
     await dispatch(requestDetailsMovie(detailsMovieData(movieData.id)));
     // await storeData('favMovie', [{id: 1111}, {id: 2222}, {id: 3333}]);  //jus for fill storage
     // getData('favMovie').then((res) => {
-    //   // console.log(res);
     //   const findIsLove = res.find((x: any) => x.id === movieData.id);
     //   setIsLove(findIsLove ? true : false);
     // });
@@ -213,18 +212,14 @@ const DetailsMovie = ({navigation, route}: any) => {
           {isLove === false && (
             <TouchableOpacity
               style={styles.wrapperLoveButton}
-              onPress={async () =>
-                await dispatch(updateFavoriteMovie(movieData))
-              }>
+              onPress={() => dispatch(updateFavoriteMovie(movieData))}>
               <IconEmptyHeart height={35} width={35} />
             </TouchableOpacity>
           )}
           {isLove === true && (
             <TouchableOpacity
               style={styles.wrapperLoveButton}
-              onPress={async () =>
-                await dispatch(deleteFavoriteMovie(movieData))
-              }>
+              onPress={() => dispatch(deleteFavoriteMovie(movieData))}>
               <IconFillHeart height={35} width={35} />
             </TouchableOpacity>
           )}
