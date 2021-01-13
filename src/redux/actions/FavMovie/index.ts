@@ -6,8 +6,6 @@ import {
 } from '../../constants';
 import {getData, showError, storeData} from '../../../utils';
 
-const storageKey = 'favMovie';
-
 export const clearFavoriteMovie = () => ({
   type: CLEAR_FAVORITE_MOVIE_LIST,
 });
@@ -15,7 +13,7 @@ export const clearFavoriteMovie = () => ({
 export const setFavoriteMovie = () => {
   return async (dispatch: any) => {
     try {
-      getData(storageKey).then((res) => {
+      getData('favMovie').then((res) => {
         dispatch({type: SET_FAVORITE_MOVIE_LIST, value: res ? res : []});
       });
     } catch (error) {
@@ -27,9 +25,9 @@ export const setFavoriteMovie = () => {
 export const updateFavoriteMovie = (data?: any) => {
   return async (dispatch: any) => {
     try {
-      getData(storageKey).then((res) => {
-        res = [...res, data];
-        storeData(storageKey, res);
+      getData('favMovie').then((res) => {
+        res = res ? [...res, data] : [data];
+        storeData('favMovie', res);
         dispatch({type: UPDATE_FAVORITE_MOVIE_LIST, value: res});
       });
     } catch (error) {
@@ -41,11 +39,10 @@ export const updateFavoriteMovie = (data?: any) => {
 export const deleteFavoriteMovie = (data?: any) => {
   return async (dispatch: any) => {
     try {
-      getData(storageKey).then((res) => {
+      getData('favMovie').then((res) => {
         res = res.filter((item: any) => item.id !== data.id);
-        storeData(storageKey, res);
-        console.log('res: ', res);
-        dispatch({type: UPDATE_FAVORITE_MOVIE_LIST, value: res});
+        storeData('favMovie', res);
+        dispatch({type: DELETE_FAVORITE_MOVIE_LIST, value: res});
       });
     } catch (error) {
       showError('failed to store.');
