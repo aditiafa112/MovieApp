@@ -1,3 +1,5 @@
+export * from './social';
+
 import IconMovieActive from './movie-icon-active.svg';
 import IconMovie from './movie-icon.svg';
 import IconTV from './tv-icon.svg';

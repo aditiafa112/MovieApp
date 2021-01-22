@@ -1,3 +1,4 @@
 import ILLOGO from './logo.svg';
+import ILLITSME from './itsme.jpg';
 
-export {ILLOGO};
+export {ILLOGO, ILLITSME};
