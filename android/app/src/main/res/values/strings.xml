@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">movieapp</string>
+    <string name="app_name">The Movie</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">raNvWttVTcm1V-hRLhODv5xmQfBlTUDT6-LLU</string>
 </resources>
