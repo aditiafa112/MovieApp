@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Alert,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
 import {ILLITSME} from '../../assets/illustration';
 import {
   IconGmail,
@@ -23,21 +14,6 @@ import {colors, fonts} from '../../utils';
 import {social} from '../../config/data';
 
 const About = () => {
-  const twoButtonAlert = (title: string, url: string) =>
-    Alert.alert(
-      `go to ${title}?`,
-      'click yes, and you will be redirect',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          // style: 'cancel',
-        },
-        {text: 'YES ', onPress: () => Linking.openURL(url)},
-      ],
-      {cancelable: false},
-    );
-
   return (
     <View style={styles.page}>
       <TopBar />
@@ -50,54 +26,42 @@ const About = () => {
             <Text style={styles.profileName}>Aditia Falacha Arvin</Text>
             <Text style={styles.profileJob}>Front End Engginer</Text>
             <View style={styles.socialWrapper}>
-              <TouchableOpacity
-                style={styles.social}
-                onPress={() => twoButtonAlert('Gmail', social.gmail)}>
+              <View style={styles.social}>
                 <IconGmail height={25} width={25} style={styles.socialIcon} />
-                <Text style={styles.socialName}>Gmail</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.social}
-                onPress={() => twoButtonAlert('Linkedin', social.linkedin)}>
+                <Text style={styles.socialName}>{social.gmail}</Text>
+              </View>
+              <View style={styles.social}>
                 <IconLinkedin
                   height={25}
                   width={25}
                   style={styles.socialIcon}
                 />
-                <Text style={styles.socialName}>Linkedin</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.social}
-                onPress={() => twoButtonAlert('Github', social.github)}>
+                <Text style={styles.socialName}>{social.linkedin}</Text>
+              </View>
+              <View style={styles.social}>
                 <IconGithub height={25} width={25} style={styles.socialIcon} />
-                <Text style={styles.socialName}>Github</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.social}
-                onPress={() => twoButtonAlert('Dribbble', social.dribbble)}>
+                <Text style={styles.socialName}>{social.github}</Text>
+              </View>
+              <View style={styles.social}>
                 <IconDribbble
                   height={25}
                   width={25}
                   style={styles.socialIcon}
                 />
-                <Text style={styles.socialName}>Dribbble</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.social}
-                onPress={() => twoButtonAlert('Medium', social.medium)}>
+                <Text style={styles.socialName}>{social.dribbble}</Text>
+              </View>
+              <View style={styles.social}>
                 <IconMedium height={25} width={25} style={styles.socialIcon} />
-                <Text style={styles.socialName}>Medium</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.social}
-                onPress={() => twoButtonAlert('Instagram', social.instagram)}>
+                <Text style={styles.socialName}>{social.medium}</Text>
+              </View>
+              <View style={styles.social}>
                 <IconInstagram
                   height={25}
                   width={25}
                   style={styles.socialIcon}
                 />
-                <Text style={styles.socialName}>Instagram</Text>
-              </TouchableOpacity>
+                <Text style={styles.socialName}>{social.instagram}</Text>
+              </View>
             </View>
             <Text style={styles.version}>- Ver 1.0 -</Text>
           </ScrollView>

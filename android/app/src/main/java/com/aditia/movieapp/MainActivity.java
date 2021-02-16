@@ -1,4 +1,4 @@
-package com.movieapp;
+package com.aditia.movieapp;
 
 import com.facebook.react.ReactActivity;
 
