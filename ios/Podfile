@@ -10,8 +10,6 @@ target 'movieapp' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
-  pod 'CodePush', :path => '../node_modules/react-native-code-push'
-
   target 'movieappTests' do
     inherit! :complete
     # Pods for testing

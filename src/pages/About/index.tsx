@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import {Image, StyleSheet, Text, View, ScrollView, Alert} from 'react-native';
 import {ILLITSME} from '../../assets/illustration';
 import {
   IconGmail,
@@ -12,8 +12,15 @@ import {
 import {TopBar} from '../../components';
 import {colors, fonts} from '../../utils';
 import {social} from '../../config/data';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const About = () => {
+  const copyToClipboard = (url: any) => {
+    Clipboard.setString(url);
+    Alert.alert('Copied to clipboard: ', url);
+  };
+
   return (
     <View style={styles.page}>
       <TopBar />
@@ -26,42 +33,52 @@ const About = () => {
             <Text style={styles.profileName}>Aditia Falacha Arvin</Text>
             <Text style={styles.profileJob}>Front End Engginer</Text>
             <View style={styles.socialWrapper}>
-              <View style={styles.social}>
+              <TouchableOpacity
+                style={styles.social}
+                onPress={() => copyToClipboard(social.gmail)}>
                 <IconGmail height={25} width={25} style={styles.socialIcon} />
-                <Text style={styles.socialName}>{social.gmail}</Text>
-              </View>
-              <View style={styles.social}>
+                <Text style={styles.socialName}>Gmail</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.social}
+                onPress={() => copyToClipboard(social.linkedin)}>
                 <IconLinkedin
                   height={25}
                   width={25}
                   style={styles.socialIcon}
                 />
-                <Text style={styles.socialName}>{social.linkedin}</Text>
-              </View>
-              <View style={styles.social}>
+                <Text style={styles.socialName}>Linkedin</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.social}
+                onPress={() => copyToClipboard(social.github)}>
                 <IconGithub height={25} width={25} style={styles.socialIcon} />
-                <Text style={styles.socialName}>{social.github}</Text>
-              </View>
-              <View style={styles.social}>
+                <Text style={styles.socialName}>Github</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.social}
+                onPress={() => copyToClipboard(social.dribbble)}>
                 <IconDribbble
                   height={25}
                   width={25}
                   style={styles.socialIcon}
                 />
-                <Text style={styles.socialName}>{social.dribbble}</Text>
-              </View>
-              <View style={styles.social}>
+                <Text style={styles.socialName}>Dribbble</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.social}
+                onPress={() => copyToClipboard(social.medium)}>
                 <IconMedium height={25} width={25} style={styles.socialIcon} />
-                <Text style={styles.socialName}>{social.medium}</Text>
-              </View>
-              <View style={styles.social}>
+                <Text style={styles.socialName}>Medium</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity style={styles.social}>
                 <IconInstagram
                   height={25}
                   width={25}
                   style={styles.socialIcon}
                 />
                 <Text style={styles.socialName}>{social.instagram}</Text>
-              </View>
+              </TouchableOpacity> */}
             </View>
             <Text style={styles.version}>- Ver 1.0 -</Text>
           </ScrollView>
